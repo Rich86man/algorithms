@@ -43,15 +43,40 @@
  * 
  * 
  */
-class Solution {
-    
+class DPSolution {
+
+    func climbStairs(_ n: Int) -> Int {
+
+        var dp: [Int] = [Int](repeating: 0, count: max(3, n + 1))
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 2
+
+        guard n > 2 else { return dp[n] }
+
+        for index in 3...n {
+            dp[index] = dp[index - 1] + dp[index - 2]
+        }
+        return dp[n]
+    }
+}
+
+class MemoSolution {
+
     var memo: [Int: Int] = [:]
-    
     func climbStairs(_ n: Int) -> Int {
         if let m = memo[n] { return m }
         if n == 1 { return 1 }
         if n == 2 { return 2 }
         memo[n] = climbStairs(n - 1) + climbStairs(n - 2)
         return memo[n]!
+    }
+}
+
+
+class Solution {
+
+    func climbStairs(_ n: Int) -> Int {
+        return DPSolution().climbStairs(n)
     }
 }
