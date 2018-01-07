@@ -42,82 +42,49 @@
  * click to show more hints.
  * 
  * Hints:
- * 
+ *
  * This problem is equivalent to finding if a cycle exists in a directed graph.
  * If a cycle exists, no topological ordering exists and therefore it will be
  * impossible to take all courses.
  * Topological Sort via DFS - A great video tutorial (21 minutes) on Coursera
  * explaining the basic concepts of Topological Sort.
  * Topological sort could also be done via BFS.
- * 
- * 
+ *
+ *
  */
 class Solution {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
-        var precedence: [Int: Set<Int>] = [:]
-        var degree: [Int: Int] = [:]
-        for classId in 0..<numCourses {
-            degree[classId] = 0
+        var graph = [Set<Int>](repeating: Set<Int>(), count: numCourses + 1) // i -> j
+        var prereqCount = [Int:Int]() // prereqCount[x] = number edges into prereqCount
+        for index in 0...numCourses {
+            prereqCount[index] = 0
+        }
+        for preReq in prerequisites {
+            graph[preReq[0]].insert(preReq[1])
+            prereqCount[preReq[1], default: 0] += 1
         }
 
-        for pair in prerequisites {
+        var stack = [Int]()
 
-            let top = pair[0]
-            let bottom = pair[1]
-
-            var dependecies = precedence[top, default: Set<Int>()]
-            if !dependecies.contains(bottom) {
-                dependecies.insert(bottom)
-                degree[bottom, default: 0] += 1
-                precedence[top] = dependecies
+        for index in 0...numCourses {
+            if prereqCount[index] == 0 {
+                stack.append(index)
             }
         }
 
-        var possibleCourses = 0
+        var classesTaken = 0
 
-        var stack = Stack<Int>()
-
-        for classId in degree.keys {
-            if degree[classId] == 0 {
-                stack.push(classId)
-            }
-        }
-        print(degree)
-        if stack.count == 0 { return false }
-        while stack.count > 0 {
-            let classId = stack.pop()!
-            possibleCourses += 1
-
-            for nextClass in precedence[classId, default: Set<Int>()] {
-
-                degree[nextClass]! -= 1
-                if degree[nextClass] == 0 {
-                    stack.push(nextClass)
+        while !stack.isEmpty {
+            let top = stack[0]
+            stack.remove(at: 0)
+            classesTaken += 1
+            for dependency in graph[top] {
+                prereqCount[dependency, default: 1] -= 1
+                if prereqCount[dependency] == 0 {
+                    stack.append(dependency)
                 }
-
             }
         }
-
-        return possibleCourses == numCourses
+        return classesTaken >= numCourses
     }
 }
-struct Stack<T> {
-    private var array: [T] = []
-
-    var count: Int {
-        return array.count
-    }
-
-    var top: T? {
-        return array.last
-    }
-
-    mutating func push(_ value: T) {
-        array.append(value)
-    }
-
-    mutating func pop() -> T? {
-        return array.popLast()
-    }
-}
-
