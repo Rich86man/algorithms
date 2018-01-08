@@ -33,17 +33,36 @@
  * Output: 6
  * Explanation: Cheapest is start on cost[0], and only step on 1s, skipping
  * cost[3].
- * 
- * 
- * 
+ *
+ *
+ *
  * Note:
- * 
+ *
  * cost will have a length in the range [2, 1000].
  * Every cost[i] will be an integer in the range [0, 999].
- * 
- * 
+ *
+ *
  */
-class Solution {
+class DPSolution {
+
+    func minCostClimbingStairs(_ cost: [Int]) -> Int {
+        var cost = cost
+        var dp = [Int](repeating: 0, count: cost.count + 5)
+        dp[0] = 0
+        dp[1] = cost[0]
+        dp[2] = min(dp[1] + cost[1], dp[0] + cost[1])
+        for step in 2...(cost.count + 2) {
+            let fromOneStep = dp[step - 1] + ( step < cost.count ? cost[step - 1] : 0 )
+            let fromTwoSteps = dp[step - 2] + ( step < cost.count ? cost[step - 1] : 0 )
+            dp[step] = min(fromOneStep, fromTwoSteps)
+        }
+        return min(dp[cost.count + 1], dp[cost.count + 2])
+    }
+}
+
+// print(DPSolution().minCostClimbingStairs([0,0,1,1]))
+
+class MemoSolution {
     var memo: [Int: Int] = [:]
     func minCostClimbingStairs(_ cost: [Int]) -> Int {
         return _minCostClimbingStairs(cost, -1)
@@ -51,10 +70,17 @@ class Solution {
     func _minCostClimbingStairs(_ cost: [Int], _ index: Int) -> Int {
         guard index < cost.count - 2 else { return 0 }
         if let m = memo[index] { return m }
-        
+
         let cost1 = cost[index + 1] + _minCostClimbingStairs(cost, index + 1)
         let cost2 = cost[index + 2] + _minCostClimbingStairs(cost, index + 2)
         memo[index] = min(cost1, cost2)
         return memo[index]!
+    }
+}
+
+class Solution {
+
+    func minCostClimbingStairs(_ cost: [Int]) -> Int {
+        return DPSolution().minCostClimbingStairs(cost)
     }
 }
