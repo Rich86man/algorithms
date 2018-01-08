@@ -31,7 +31,7 @@
  */
 class Solution {
 
-    let dict = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]    
+    let dict = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
     var combinations = [String]()
     
     func letterCombinations(_ digits: String) -> [String] {
@@ -45,8 +45,8 @@ class Solution {
             combinations.append(builder)
             return
         }
-        
-        for char in dict[Int(String(digits[digits.index(digits.startIndex, offsetBy: index)]))!] {
+        let phoneKey: Int = Int(String())!
+        for char in dict[phoneKey] {
             _letterCombinations(builder + String(char), index + 1, digits)
         }
     }

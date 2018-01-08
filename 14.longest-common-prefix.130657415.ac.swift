@@ -16,7 +16,6 @@
 class Solution {
 
     class func prefix(_ a: String, _ b: String) -> String {
-//        guard !a.isEmpty && !b.isEmpty else { return "" }
 
         for index in 0..<min(a.count, b.count) {
             guard a[a.index(a.startIndex, offsetBy: index)] == b[b.index(b.startIndex, offsetBy: index)]
@@ -37,16 +36,5 @@ class Solution {
             longest = word
         }
         return longest
-    }
-}
-
-extension Collection {
-    func forEachPermutation(_ block: ((Element, Element) -> Void)) {
-        for index in indices {
-            for index2 in indices {
-                if index2 <= index { continue }
-                block(self[index], self[index2])
-            }
-        }
     }
 }

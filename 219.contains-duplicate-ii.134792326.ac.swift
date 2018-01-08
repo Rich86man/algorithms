@@ -16,16 +16,17 @@
  * 
  */
 class Solution {
+
     func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
         guard nums.count > 0 else { return false }
         guard k > 0 else { return false }
         var cache = [Int: Int]()
-        
+
         for index in 0..<nums.count {
-            
+
             if let lastSeen = cache[nums[index]],  abs(lastSeen - index) <= k {
                 return true
-            } 
+            }
             cache[nums[index]] = index
         }
         

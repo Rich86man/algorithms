@@ -21,22 +21,16 @@
 class Solution {
     func plusOne(_ digits: [Int]) -> [Int] {
         var result = digits
-        var carry = 1
-        for index in (-1..<digits.count).reversed() {
-            print(index)
-            if index == -1 {
-                if carry == 1 {
-                    result.insert(carry, at: 0)    
-                }
-                break
-            }
-            let total = result[index] + carry
-            result[index] = total % 10
-            carry = total / 10
-            if carry == 0 {
-                break
-            }
+        var index = result.count - 1
+        while index >= 0 && result[index] == 9 {
+            result[index] = 0
+            index -= 1
         }
+        if index < 0 {
+            result.insert(0, at: 0)
+            index += 1
+        }
+        result[index] += 1
         return result
     }
 }
