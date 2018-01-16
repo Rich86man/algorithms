@@ -20,12 +20,12 @@ extension Array {
     mutating func push(_ value: Element) {
         insert(value, at: 0)
     }
-
+    
     func peek() -> Element? {
         guard count > 0 else { return nil }
         return self[0]
     }
-
+    
     @discardableResult
     mutating func pop() -> Element? {
         guard count > 0 else { return nil }

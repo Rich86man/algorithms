@@ -30,8 +30,8 @@
 def min_distance(word1, word2)
     l = [word1.length, word2.length].max
     dp = Array.new(l + 1){Array.new(l + 1,0)}
-
-    n = 1
+    
+    n = 1 
     m = 1
     
     while n <= l do

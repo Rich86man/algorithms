@@ -16,14 +16,15 @@
  * 
  */
 class Solution {
-    
     func containsDuplicate(_ nums: [Int]) -> Bool {
         var cache = [Int: Int]()
         for num in nums {
             guard cache[num] == nil else { return true }
             cache[num] = 1
         }
-
+        
+            
+        
         return false
     }
 }

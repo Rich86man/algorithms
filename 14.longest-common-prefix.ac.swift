@@ -13,6 +13,21 @@
  * of strings.
  * 
  */
+/*
+ * [14] Longest Common Prefix
+ *
+ * https://leetcode.com/problems/longest-common-prefix/description/
+ *
+ * algorithms
+ * Easy (31.57%)
+ * Total Accepted:    233.6K
+ * Total Submissions: 739.9K
+ * Testcase Example:  '[]'
+ *
+ * Write a function to find the longest common prefix string amongst an array
+ * of strings.
+ * 
+ */
 class Solution {
 
     class func prefix(_ a: String, _ b: String) -> String {
@@ -38,3 +53,4 @@ class Solution {
         return longest
     }
 }
+

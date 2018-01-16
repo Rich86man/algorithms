@@ -24,12 +24,13 @@
  * Note: All inputs will be in lower-case.
  */
 class Solution {
-
-    func groupAnagrams(_ strs: [String]) -> [[String]] {
+    
+    func groupAnagrams(_ strs: [String]) -> [[String]] { 
 
         guard strs.count > 0 else { return [strs] }
+        
 
-        var cache = [String: [String]]()
+        var cache = [String: [String]]()    
         for string in strs {
             let s = String(string.sorted())
             cache[s, default: [String]()].append(string)
